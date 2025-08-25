@@ -1,0 +1,75 @@
+# -----------------------------------------
+# Build outputs
+# -----------------------------------------
+bin/
+obj/
+out/
+publish/
+
+# Coverage reports
+*.coverage
+*.coveragexml
+*.opencover.xml
+coverage.json
+coverage.cobertura.xml
+coverage.opencover.xml
+**/_coverage/
+**/TestResults/
+
+# EF Migrations (keep code but ignore snapshots)
+**/Migrations/*Snapshot.cs
+
+# -----------------------------------------
+# Visual Studio / VS Code
+# -----------------------------------------
+.vs/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# -----------------------------------------
+# OS files
+# -----------------------------------------
+[Dd]esktop.ini
+[Tt]humbs.db
+ehthumbs.db
+$RECYCLE.BIN/
+*.swp
+*.DS_Store
+
+# -----------------------------------------
+# Logs & temp
+# -----------------------------------------
+*.log
+*.tmp
+*.temp
+*.bak
+*.old
+
+# -----------------------------------------
+# Docker
+# -----------------------------------------
+**/docker-compose.override.yml
+**/docker-compose.*.yml
+**/.docker/
+**/Dockerfile.*
+**/.env
+
+# -----------------------------------------
+# Node / Frontend (in case you add Angular/React UI inside repo)
+# -----------------------------------------
+node_modules/
+npm-debug.log
+yarn-error.log
+dist/
+build/
+
+# -----------------------------------------
+# Secrets
+# -----------------------------------------
+*.secret.json
+*.env
+appsettings.*.local.json
+appsettings.Development.json

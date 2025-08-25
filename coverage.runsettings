@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+  <DataCollectionRunSettings>
+    <DataCollectors>
+      <DataCollector friendlyName="XPlat Code Coverage">
+        <Configuration>
+          <!-- Formato del reporte (se guardará en TestResults) -->
+          <Format>json</Format>
+
+          <!-- Exclusiones por archivo (globs) -->
+          <ExcludeByFile>
+            **/Program.cs,
+            **/Migrations/**,
+            **/Data/Seed/**,
+            **/Common/Mapping/**,
+            **/*Dto.cs,
+            **/Models/**,
+            **/*Exception*.cs,
+            **/*Exceptions*.cs,
+            **/*DbContext*.cs
+          </ExcludeByFile>
+
+          <!-- Exclusiones por filtro (Assembly]Namespace.Type) -->
+          <!-- Ajusta 'backend' si tu assembly principal tiene otro nombre -->
+          <Exclude>
+            [backend]backend.DTOs.*,
+            [backend]backend.Models.*,
+            [backend]backend.Exceptions.*,
+            [backend]backend.Data.*,
+            [backend]backend.Common.Mapping.*
+          </Exclude>
+        </Configuration>
+      </DataCollector>
+    </DataCollectors>
+  </DataCollectionRunSettings>
+</RunSettings>

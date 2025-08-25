@@ -1,0 +1,28 @@
+﻿<Project>
+  <PropertyGroup>
+    <CollectCoverage>true</CollectCoverage>
+    <CoverletOutputFormat>json</CoverletOutputFormat>
+
+    <!-- Cuenta SOLO estas áreas -->
+    <Include>
+      [backend]backend.Controllers.*;
+      [backend]backend.Services.*;
+      [backend]backend.Repositories.*;
+      [backend]backend.Common.Mapping.*
+    </Include>
+
+    <!-- (opcional) también excluimos por ruta para no confundir -->
+    <ExcludeByFile>
+      **/Program.cs;
+      **/Migrations/**;
+      **/Data/Seed/**;
+      **/Middlewares/**;
+      **/DTOs/**;
+      **/*Dto.cs;
+      **/Models/**;
+      **/*Exception*.cs;
+      **/*Exceptions*.cs;
+      **/*DbContext*.cs
+    </ExcludeByFile>
+  </PropertyGroup>
+</Project>

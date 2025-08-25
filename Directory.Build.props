@@ -1,0 +1,29 @@
+﻿<Project>
+  <PropertyGroup>
+    <CollectCoverage>true</CollectCoverage>
+    <CoverletOutputFormat>json</CoverletOutputFormat>
+
+    <!-- Excluir por RUTA -->
+    <ExcludeByFile>
+      **/Program.cs;
+      **/Migrations/**;
+      **/Data/Seed/**;
+      **/Common/Mapping/**;
+      **/DTOs/**;
+      **/*Dto.cs;
+      **/Models/**;
+      **/*Exception*.cs;
+      **/*Exceptions*.cs;
+      **/*DbContext*.cs;
+      **/Middlewares/**
+    </ExcludeByFile>
+
+    <!-- Excluir por TIPO/NAMESPACE -->
+    <!-- OJO: 'backend' debe ser el nombre del ensamblado (lo es según tu salida) -->
+    <Exclude>
+      [backend]backend.Middlewares.*,
+      [backend]backend.Data.Seed.*,
+      [backend]Program
+    </Exclude>
+  </PropertyGroup>
+</Project>
