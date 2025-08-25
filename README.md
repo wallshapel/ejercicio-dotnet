@@ -67,6 +67,7 @@ GET https://localhost:7131/api/Product?Page=1&PageSize=5
 - **Services** → Lógica de negocio.
 - **Seeders** → Inicialización con datos **realistas** gracias a **Bogus**.
 - **UUIDs** → Seguridad extra para identificar los registros.
+- **Manejo global de excepciones** → Para el ejercicio, en caso de no haber data regresa un error controlado de manera global.
 
 ---
 
