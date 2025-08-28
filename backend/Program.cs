@@ -8,46 +8,53 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// DbContext + retry on failure (handles transient startup races)
+// DbContext + retries (handles races/transients when starting containers)
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection"),
         sql => sql.EnableRetryOnFailure(5, TimeSpan.FromSeconds(5), null)
     ));
 
-// Register custom services
-// Mapper
+// Services
 builder.Services.AddSingleton<IObjectMapper, ReflectionObjectMapper>();
-// Repository
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
-// Service
 builder.Services.AddScoped<IProductService, ProductService>();
 
-// Add services to the container.
+// MVC + Swagger
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Global exceptions
+// Global exception handling middleware
 app.UseGlobalExceptionHandling();
 
-// Seed DB (only if empty)
+// === Migrations and seed on startup ===
+// Let us ensure that if the DB does not exist/local is empty, it is created, migrated, and seeded.
+// This runs both in the container and on your local machine.
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    await db.Database.MigrateAsync();
+}
 await app.SeedDatabaseAsync();
 
-// Configure the HTTP request pipeline.
+// Swagger only in Development
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// Conditional HTTPS: within the container, we prefer simple HTTP to avoid certificates.
+// Pass it with the variable DisableHttpsRedirect=true in docker-compose.
+var disableHttps = app.Configuration.GetValue<bool>("DisableHttpsRedirect");
+if (!disableHttps)
+{
+    app.UseHttpsRedirection();
+}
 
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
